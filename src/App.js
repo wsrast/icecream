@@ -1,26 +1,39 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components/macro';
+import Layout from './components/Layout';
+
+/* theme:
+ * bkg: #282c34
+ * link: #09d3ac
+ * text: #fff;
+ */
+
+const AppMain = styled.div`
+	text-align: center;
+	color: #fff;
+`;
+
+const AppHeader = styled.div`
+	background-color: #282c34;
+	color: white;
+	font-size: calc(10px + 2vmin);
+	min-height: 10vh;
+	padding-left: 1%;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	return (
+		<AppMain>
+			<AppHeader>
+				<p>CRA Sandbox</p>
+			</AppHeader>
+			<Layout />
+		</AppMain>
+	);
 }
 
 export default App;
