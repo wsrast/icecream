@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components/macro';
 
@@ -16,16 +16,34 @@ const BodyCell = styled.section`
 	border-radius: 8px;
 	min-height: 85vh;
 	min-width: 48%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
 `;
 BodyCell.defaultProps = { bkgColor: '#282c34' };
+
+const BodyContent = styled.div`
+	border: 1px solid rgba(256, 256, 256, 0.05);
+	min-width: 96%;
+`;
 
 const Layout = memo(props => {
 	const { bkgColor } = props;
 
+	const [count, setCount] = useState(0);
+	const clickCounter = () => setCount(count + 1);
+
 	return (
 		<BodyLayout bkgColor={bkgColor}>
-			<BodyCell>Cell 1</BodyCell>
-			<BodyCell>Cell 2</BodyCell>
+			<BodyCell>
+				<BodyContent onClick={clickCounter}>Click count: ${count}</BodyContent>
+			</BodyCell>
+			<BodyCell>
+				{[...Array(8).keys()].map((v, i) => (
+					<BodyContent key={`cell${i}`}>Cell {i}</BodyContent>
+				))}
+			</BodyCell>
 		</BodyLayout>
 	);
 });
