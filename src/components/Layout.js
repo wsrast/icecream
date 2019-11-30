@@ -1,5 +1,6 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import cuid from 'cuid';
 import styled from 'styled-components/macro';
 
 const BodyLayout = styled.section`
@@ -34,6 +35,25 @@ const Layout = memo(props => {
 	const [count, setCount] = useState(0);
 	const clickCounter = () => setCount(count + 1);
 
+	/**
+	 * Notes for useEffect()
+	 * 1. Use multiple useEffect hooks for separating concerns
+	 * 2. Clean up by returning a function
+	 * 3. useEffect hooks run *after* render
+	 * 4. useLayoutEffect runs synchronously, with same API
+	 * 5. useEffect's second parameter checks the passed value for
+	 * 	differences, and skips the effect if it hasn't changed. Make
+	 * 	sure to include *all* changing values the effect uses, or
+	 * 	you'll get stale values.
+	 * 6. Give an empty array [] as the second param to run the
+	 * 	effect only once.
+	 */
+	useEffect(() => {
+		document.title = `Sandbox - clicked (${count})`;
+		// any cleanup? return cleanup function:
+		// return () => {};
+	}, [count]);
+
 	return (
 		<BodyLayout bkgColor={bkgColor}>
 			<BodyCell>
@@ -41,7 +61,7 @@ const Layout = memo(props => {
 			</BodyCell>
 			<BodyCell>
 				{[...Array(8).keys()].map((v, i) => (
-					<BodyContent key={`cell${i}`}>Cell {i}</BodyContent>
+					<BodyContent key={`cell${cuid()}`}>Cell {i}</BodyContent>
 				))}
 			</BodyCell>
 		</BodyLayout>
