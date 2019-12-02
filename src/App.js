@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components/macro';
 import GlobalProvider from './contexts/global';
 import Layout from './components/Layout';
+import Sidebar from './components/Sidebar';
+import Mainbar from './components/Mainbar';
 
 /* theme:
  * bkg: #282c34
@@ -33,7 +35,10 @@ function App() {
 				<AppHeader>
 					<p>CRA Sandbox</p>
 				</AppHeader>
-				<Layout />
+				<Layout>
+					<Sidebar />
+					<Mainbar />
+				</Layout>
 			</AppMain>
 		</GlobalProvider>
 	);

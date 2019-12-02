@@ -1,6 +1,5 @@
 import React, { memo, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import cuid from 'cuid';
 import styled from 'styled-components/macro';
 import { GlobalContext } from '../contexts/global';
 
@@ -13,38 +12,12 @@ const BodyLayout = styled.section`
 	align-items: center;
 `;
 
-const BodyCell = styled.section`
-	background-color: ${props => props.bkgColor};
-	border-radius: 8px;
-	min-height: 85vh;
-	min-width: 72%;
-	display: flex;
-	flex-flow: column wrap;
-	align-items: center;
-	justify-content: flex-start;
-`;
-BodyCell.defaultProps = { bkgColor: '#282c34' };
-
-const NavCell = styled(BodyCell)`
-	min-width: 25%;
-`;
-
-const BodyContent = styled.div`
-	border: 1px solid rgba(256, 256, 256, 0.05);
-	cursor: pointer;
-	min-width: 96%;
-	user-select: none;
-`;
-
 const Layout = memo(props => {
-	const { bkgColor } = props;
+	const { children, bkgColor } = props;
 
 	const {
 		state: { count },
-		dispatch,
 	} = useContext(GlobalContext);
-	// const [count, setCount] = useState(0);
-	const clickCounter = () => dispatch({ type: 'INCREMENT' });
 
 	/**
 	 * Notes for useEffect()
@@ -65,22 +38,12 @@ const Layout = memo(props => {
 		// return () => {};
 	}, [count]);
 
-	return (
-		<BodyLayout bkgColor={bkgColor}>
-			<NavCell>
-				<BodyContent onClick={clickCounter}>Click count: {count}</BodyContent>
-			</NavCell>
-			<BodyCell>
-				{[...Array(8).keys()].map((v, i) => (
-					<BodyContent key={`cell${cuid()}`}>Cell {i}</BodyContent>
-				))}
-			</BodyCell>
-		</BodyLayout>
-	);
+	return <BodyLayout bkgColor={bkgColor}>{children}</BodyLayout>;
 });
 
 Layout.propTypes = {
 	bkgColor: PropTypes.string,
+	children: PropTypes.node.isRequired,
 };
 Layout.defaultProps = {
 	bkgColor: '#222',
