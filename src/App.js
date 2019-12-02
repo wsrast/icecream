@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import GlobalProvider from './contexts/global';
 import Layout from './components/Layout';
 
 /* theme:
@@ -27,12 +28,14 @@ const AppHeader = styled.div`
 
 function App() {
 	return (
-		<AppMain>
-			<AppHeader>
-				<p>CRA Sandbox</p>
-			</AppHeader>
-			<Layout />
-		</AppMain>
+		<GlobalProvider>
+			<AppMain>
+				<AppHeader>
+					<p>CRA Sandbox</p>
+				</AppHeader>
+				<Layout />
+			</AppMain>
+		</GlobalProvider>
 	);
 }
 
