@@ -3,12 +3,14 @@ import React, { createContext, useReducer } from 'react';
 
 export const GlobalContext = createContext();
 
-const reducer = (state, { type }) => {
+const reducer = (state, { type, payload }) => {
 	switch (type) {
 		case 'INCREMENT':
 			return { ...state, count: state.count + 1 };
 		case 'DECREMENT':
 			return { ...state, count: state.count - 1 };
+		case 'ROWCLICK':
+			return { ...state, count: state.count + 1, last: payload.index };
 		default:
 			return state;
 	}
@@ -16,6 +18,7 @@ const reducer = (state, { type }) => {
 
 const initialState = {
 	count: 0,
+	last: null,
 	theme: {
 		'background-color': '#282c34',
 		link: '#09d3ac',
