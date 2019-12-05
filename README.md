@@ -7,3 +7,7 @@ This repo contains a simple sandbox based off of create-react-app, but with a bu
 ```cmd
 yarn start
 ```
+
+```cmd
+yarn test
+```
