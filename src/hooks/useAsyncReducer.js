@@ -26,13 +26,16 @@ const useAsyncReducer = (reducers, initialValue = {}, asyncHandler) => {
 	 * the given asyncHandler function.
 	 * @type {Function}
 	 */
-	const asyncDispatch = useCallback(async action => {
-		if (action.meta && action.meta.api) {
-			asyncHandler(dispatch, action);
-		} else {
-			dispatch(action);
-		}
-	}, []);
+	const asyncDispatch = useCallback(
+		async action => {
+			if (action.meta && action.meta.api) {
+				asyncHandler(dispatch, action);
+			} else {
+				dispatch(action);
+			}
+		},
+		[asyncHandler]
+	);
 
 	return [state, asyncDispatch];
 };

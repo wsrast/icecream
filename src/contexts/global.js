@@ -1,24 +1,29 @@
 import PropTypes from 'prop-types';
-import React, { createContext, useReducer } from 'react';
+import React, { createContext } from 'react';
+import { createAction, handleActions } from 'redux-actions';
+import config from '../config/default';
+import useAsyncReducer from '../hooks/useAsyncReducer';
+import send from '../services/httpClient';
 
 export const GlobalContext = createContext();
 
-const reducer = (state, { type, payload }) => {
-	switch (type) {
-		case 'INCREMENT':
-			return { ...state, count: state.count + 1 };
-		case 'DECREMENT':
-			return { ...state, count: state.count - 1 };
-		case 'ROWCLICK':
-			return { ...state, count: state.count + 1, last: payload.index };
-		default:
-			return state;
-	}
-};
+// action creators
+export const receiveGeocoords = createAction('RECEIVE_GEOCOORDS');
+export const getGeocoords = createAction('GET_GEOCOORDS', undefined, () => ({
+	api: {
+		req: config.serviceUrl,
+		callbackAction: receiveGeocoords,
+	},
+}));
+export const increment = createAction('INCREMENT');
+export const decrement = createAction('DECREMENT');
+export const rowClick = createAction('ROWCLICK');
 
 const initialState = {
+	coords: {},
 	count: 0,
 	last: null,
+	loading: true,
 	theme: {
 		'background-color': '#282c34',
 		link: '#09d3ac',
@@ -26,8 +31,55 @@ const initialState = {
 	},
 };
 
+export const reducers = handleActions(
+	{
+		[receiveGeocoords](state, { payload, error }) {
+			const {
+				features: [
+					{
+						geometry: {
+							coordinates: [lon, lat],
+						},
+					},
+				],
+			} = payload;
+			return { ...state, geocoords: { lon, lat }, loading: false, error };
+		},
+		[increment](state) {
+			return { ...state, count: state.count + 1 };
+		},
+		[decrement](state) {
+			return { ...state, count: state.count - 1 };
+		},
+		[rowClick](state, { payload }) {
+			return { ...state, count: state.count + 1, last: payload.index };
+		},
+	},
+	initialState
+);
+
+/**
+ * @param (Function) dispatch - output of the useAsyncReducer hook
+ * @param (Object) action - Flux Standard Action. Known to contain
+ * 	the meta.api object, else this function wouldn't get called
+ * 	by the useAsyncReducer hook.
+ */
+const asyncHandler = async (dispatch, action) => {
+	const { req, callbackAction } = action.meta.api;
+	try {
+		const response = await send(req);
+		dispatch(callbackAction(response));
+	} catch (e) {
+		dispatch(callbackAction(e));
+	}
+};
+
 const GlobalProvider = ({ children }) => {
-	const [state, dispatch] = useReducer(reducer, initialState);
+	const [state, dispatch] = useAsyncReducer(
+		reducers,
+		initialState,
+		asyncHandler
+	);
 
 	return (
 		<GlobalContext.Provider value={{ state, dispatch }}>

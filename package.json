@@ -5,7 +5,7 @@
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
-		"test": "react-scripts test",
+		"test": "react-scripts test --verbose",
 		"eject": "react-scripts eject"
 	},
 	"eslintConfig": {
@@ -43,6 +43,7 @@
 		"react-router-dom": "^5.1.2",
 		"react-scripts": "^3.2.0",
 		"reactime": "^3.0.2",
+		"redux-actions": "^2.6.5",
 		"styled-components": "^4.4.1"
 	},
 	"devDependencies": {
@@ -66,7 +67,6 @@
 		"jest-in-case": "^1.0.2",
 		"lint-staged": "^9.4.3",
 		"prettier": "^1.16.4",
-		"redux-actions": "^2.6.5",
 		"typescript": "^3.7.2"
 	}
 }
