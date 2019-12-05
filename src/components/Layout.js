@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { GlobalContext } from '../contexts/global';
 
 const BodyLayout = styled.section`
-	background-color: ${props => props.bkgColor};
+	background-color: ${({ theme: { pageBkgColor } }) => pageBkgColor};
 	min-height: 90vh;
 	display: flex;
 	flex-flow: row wrap;
@@ -13,7 +13,7 @@ const BodyLayout = styled.section`
 `;
 
 const Layout = memo(props => {
-	const { children, bkgColor } = props;
+	const { children } = props;
 
 	const {
 		state: { count },
@@ -38,15 +38,11 @@ const Layout = memo(props => {
 		// return () => {};
 	}, [count]);
 
-	return <BodyLayout bkgColor={bkgColor}>{children}</BodyLayout>;
+	return <BodyLayout>{children}</BodyLayout>;
 });
 
 Layout.propTypes = {
-	bkgColor: PropTypes.string,
 	children: PropTypes.node.isRequired,
-};
-Layout.defaultProps = {
-	bkgColor: '#222',
 };
 
 export default Layout;

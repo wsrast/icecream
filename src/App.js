@@ -1,24 +1,20 @@
 import React from 'react';
 import styled from 'styled-components/macro';
+import { ThemeProvider } from 'styled-components';
 import GlobalProvider from './contexts/global';
 import Layout from './components/Layout';
 import Sidebar from './components/Sidebar';
 import Mainbar from './components/Mainbar';
-
-/* theme:
- * bkg: #282c34
- * link: #09d3ac
- * text: #fff;
- */
+import defaultTheme from './theme/theme';
 
 const AppMain = styled.div`
 	text-align: center;
-	color: #fff;
+	color: ${({ theme: { text } }) => text};
 `;
 
 const AppHeader = styled.div`
-	background-color: #282c34;
-	color: white;
+	background-color: ${({ theme }) => theme['background-color']};
+	color: ${({ theme: { text } }) => text};
 	font-size: calc(10px + 2vmin);
 	min-height: 10vh;
 	padding-left: 1%;
@@ -30,17 +26,19 @@ const AppHeader = styled.div`
 
 function App() {
 	return (
-		<GlobalProvider>
-			<AppMain>
-				<AppHeader>
-					<p>CRA Sandbox</p>
-				</AppHeader>
-				<Layout>
-					<Sidebar />
-					<Mainbar />
-				</Layout>
-			</AppMain>
-		</GlobalProvider>
+		<ThemeProvider theme={defaultTheme}>
+			<GlobalProvider>
+				<AppMain>
+					<AppHeader>
+						<p>CRA Sandbox</p>
+					</AppHeader>
+					<Layout>
+						<Sidebar />
+						<Mainbar />
+					</Layout>
+				</AppMain>
+			</GlobalProvider>
+		</ThemeProvider>
 	);
 }
 

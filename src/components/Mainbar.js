@@ -9,7 +9,7 @@ export const MainbarStyled = styled(BodyCellStyled)`
 `;
 
 const BodyContent = styled.div`
-	border: 1px solid rgba(256, 256, 256, 0.05);
+	border: ${({ theme: { bodyBorder } }) => bodyBorder};
 	cursor: pointer;
 	min-width: 96%;
 	user-select: none;

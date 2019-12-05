@@ -30,11 +30,6 @@ const initialState = {
 	count: 0,
 	last: null,
 	loading: true,
-	theme: {
-		'background-color': '#282c34',
-		link: '#09d3ac',
-		text: '#fff',
-	},
 };
 
 export const reducers = handleActions(
