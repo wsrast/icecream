@@ -4,23 +4,29 @@ import { createAction, handleActions } from 'redux-actions';
 import config from '../config/default';
 import useAsyncReducer from '../hooks/useAsyncReducer';
 import send from '../services/httpClient';
+import getApiUrl from '../services/geocodeApi';
 
 export const GlobalContext = createContext();
 
 // action creators
 export const receiveGeocoords = createAction('RECEIVE_GEOCOORDS');
-export const getGeocoords = createAction('GET_GEOCOORDS', undefined, () => ({
+export const getGeocoords = createAction('GET_GEOCOORDS', undefined, loc => ({
 	api: {
-		req: config.serviceUrl,
+		req: getApiUrl(loc),
 		callbackAction: receiveGeocoords,
 	},
 }));
+export const loadGeocoords = createAction('LOAD_GEOCOORDS');
 export const increment = createAction('INCREMENT');
 export const decrement = createAction('DECREMENT');
 export const rowClick = createAction('ROWCLICK');
+export const updateLocation = createAction('UPDATE_LOCATION', location => ({
+	location,
+}));
 
 const initialState = {
-	coords: {},
+	geocoords: {},
+	location: config.defaultLocation,
 	count: 0,
 	last: null,
 	loading: true,
@@ -53,6 +59,9 @@ export const reducers = handleActions(
 		},
 		[rowClick](state, { payload }) {
 			return { ...state, count: state.count + 1, last: payload.index };
+		},
+		[updateLocation](state, { payload: { location } }) {
+			return { ...state, location };
 		},
 	},
 	initialState

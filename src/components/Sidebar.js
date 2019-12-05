@@ -3,7 +3,11 @@ import styled from 'styled-components/macro';
 import ClickCounter from './ClickCounter';
 import LastClick from './LastClick';
 import { BodyCellStyled } from './BodyCell';
-import { GlobalContext, getGeocoords } from '../contexts/global';
+import {
+	GlobalContext,
+	getGeocoords,
+	updateLocation,
+} from '../contexts/global';
 
 const SideBarStyled = styled(BodyCellStyled)`
 	min-width: 25%;
@@ -11,7 +15,7 @@ const SideBarStyled = styled(BodyCellStyled)`
 
 const Sidebar = () => {
 	const {
-		state: { loading, geocoords },
+		state: { loading, geocoords, location },
 		dispatch,
 	} = useContext(GlobalContext);
 
@@ -21,7 +25,15 @@ const Sidebar = () => {
 			<LastClick />
 			<div>Longitude: {loading ? '' : geocoords.lon}</div>
 			<div>Latitude: {loading ? '' : geocoords.lat}</div>
-			<button type="button" onClick={() => dispatch(getGeocoords())}>
+			<br />
+			<input
+				type="text"
+				name="location"
+				value={location}
+				placeholder="City, State"
+				onChange={e => dispatch(updateLocation(e.target.value))}
+			/>
+			<button type="button" onClick={() => dispatch(getGeocoords(location))}>
 				Load Geocoords
 			</button>
 		</SideBarStyled>
