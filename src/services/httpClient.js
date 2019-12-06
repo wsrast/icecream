@@ -24,7 +24,6 @@ export const delay = ms =>
  */
 const send = async request => {
 	const req = buildRequest(request);
-
 	try {
 		const response = await makeRequest(req);
 		return getResponse(response);

@@ -4,6 +4,14 @@ const config = {
 	serviceRoute: 'https://api.opencagedata.com/geocode/v1/geojson',
 	defaultLocation: 'Alpharetta, GA',
 	geocodeAPIKey: '73fa539148264cfd918045cf9d105e36',
+	yelp: {
+		serviceUrl: 'https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/',
+		searchRoute: '/businesses/search',
+		businessesRoute: '/businesses',
+		reviewsRoute: '/reviews',
+		key:
+			'Bearer yv4GtmOaK8HXvupUCNj0SbaVcEPXFsFnRo39_Vk8PkBjzSc8N0t7vq9B78u-BIztI1Id0eVotBtUueIX7eucMkPkUlBD-WfCytfCctaXbOTYzw87e8gqyUwI7AnnXXYx',
+	},
 };
 
 export default config;

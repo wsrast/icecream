@@ -5,6 +5,7 @@ import config from '../config/default';
 import useAsyncReducer from '../hooks/useAsyncReducer';
 import send from '../services/httpClient';
 import getApiUrl from '../services/geocodeApi';
+import getYelpApiUrl from '../services/yelpApi';
 
 export const GlobalContext = createContext();
 
@@ -16,7 +17,22 @@ export const getGeocoords = createAction('GET_GEOCOORDS', undefined, loc => ({
 		callbackAction: receiveGeocoords,
 	},
 }));
-export const loadGeocoords = createAction('LOAD_GEOCOORDS');
+export const receiveIceCreamShops = createAction('RECEIVE_ICE_CREAM_SHOPS');
+export const getIceCreamShops = createAction(
+	'GET_ICE_CREAM_SHOPS',
+	undefined,
+	geocoords => ({
+		api: {
+			req: {
+				headers: {
+					Authorization: config.yelp.key,
+				},
+				url: getYelpApiUrl('search', geocoords),
+			},
+			callbackAction: receiveIceCreamShops,
+		},
+	})
+);
 export const increment = createAction('INCREMENT');
 export const decrement = createAction('DECREMENT');
 export const rowClick = createAction('ROWCLICK');
@@ -25,6 +41,7 @@ export const updateLocation = createAction('UPDATE_LOCATION', location => ({
 }));
 
 const initialState = {
+	businesses: [],
 	geocoords: {},
 	location: config.defaultLocation,
 	count: 0,
@@ -39,12 +56,16 @@ export const reducers = handleActions(
 				features: [
 					{
 						geometry: {
-							coordinates: [lon, lat],
+							coordinates: [lat, lon],
 						},
 					},
 				],
 			} = payload;
 			return { ...state, geocoords: { lon, lat }, loading: false, error };
+		},
+		[receiveIceCreamShops](state, { payload: { businesses }, error }) {
+			// todo: handle the error
+			return { ...state, businesses };
 		},
 		[increment](state) {
 			return { ...state, count: state.count + 1 };
