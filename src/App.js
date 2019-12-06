@@ -13,8 +13,8 @@ const AppMain = styled.div`
 `;
 
 const AppHeader = styled.div`
-	background-color: ${({ theme }) => theme['background-color']};
-	color: ${({ theme: { text } }) => text};
+	background-color: ${({ theme: { color2 } }) => color2};
+	color: ${({ theme: { textLight } }) => textLight};
 	font-size: calc(10px + 2vmin);
 	min-height: 10vh;
 	padding-left: 1%;
@@ -30,7 +30,7 @@ function App() {
 			<GlobalProvider>
 				<AppMain>
 					<AppHeader>
-						<p>CRA Sandbox</p>
+						<p>I Love Ice Cream</p>
 					</AppHeader>
 					<Layout>
 						<Sidebar />

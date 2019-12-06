@@ -4,7 +4,7 @@ import styled from 'styled-components/macro';
 import { GlobalContext } from '../contexts/global';
 
 const BodyLayout = styled.section`
-	background-color: ${({ theme: { pageBkgColor } }) => pageBkgColor};
+	background-color: ${({ theme: { hsbColor3 } }) => hsbColor3};
 	min-height: 90vh;
 	display: flex;
 	flex-flow: row wrap;
