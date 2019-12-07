@@ -12,8 +12,8 @@ import {
 } from '../contexts/global';
 
 const SideBarStyled = styled(BodyCellStyled)`
-	min-width: 25%;
-	max-width: 25%;
+	min-width: 25vw;
+	max-width: 25vw;
 `;
 
 const Sidebar = () => {
@@ -35,7 +35,7 @@ const Sidebar = () => {
 				onChange={e => dispatch(updateLocation(e.target.value))}
 			/>
 			<Button type="button" onClick={() => dispatch(getGeocoords(location))}>
-				Load Geocoords
+				Load Ice Cream Shops
 			</Button>
 			<br />
 			<div>Longitude: {loading ? '' : geocoords.lon}</div>

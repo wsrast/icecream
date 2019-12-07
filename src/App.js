@@ -15,13 +15,17 @@ const AppMain = styled.div`
 const AppHeader = styled.div`
 	background-color: ${({ theme: { color2 } }) => color2};
 	color: ${({ theme: { textLight } }) => textLight};
-	font-size: calc(10px + 2vmin);
+	padding-left: 2em;
+	line-height: 10vh;
 	min-height: 10vh;
-	padding-left: 1%;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
 	justify-content: flex-start;
+`;
+
+const H1 = styled.h1`
+	margin: 0;
 `;
 
 function App() {
@@ -30,7 +34,7 @@ function App() {
 			<GlobalProvider>
 				<AppMain>
 					<AppHeader>
-						<p>I Love Ice Cream</p>
+						<H1>I Love Ice Cream</H1>
 					</AppHeader>
 					<Layout>
 						<Sidebar />

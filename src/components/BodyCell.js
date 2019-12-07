@@ -5,8 +5,9 @@ import styled from 'styled-components/macro';
 export const BodyCellStyled = styled.section`
 	background-color: ${({ theme: { color3 } }) => color3};
 	border-radius: 8px;
-	min-height: 85vh;
-	min-width: 72%;
+	margin: 16px 0;
+	min-height: 84vh;
+	min-width: 72vw;
 	display: flex;
 	flex-flow: column wrap;
 	align-items: center;

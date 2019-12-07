@@ -9,7 +9,7 @@ const BodyLayout = styled.section`
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-around;
-	align-items: center;
+	align-items: flex-start;
 `;
 
 const Layout = memo(props => {

@@ -63,8 +63,17 @@ export const reducers = handleActions(
 			} = payload;
 			return { ...state, geocoords: { lon, lat }, loading: false, error };
 		},
+		// eslint-disable-next-line no-unused-vars
 		[receiveIceCreamShops](state, { payload: { businesses }, error }) {
 			// todo: handle the error
+			/*
+				// simple star sort instead of Yelp's version:
+				const sorted = businesses.sort((a, b) => {
+				if (a.rating > b.rating) return -1;
+				if (a.rating < b.rating) return 1;
+				return 0;
+			});
+			*/
 			return { ...state, businesses };
 		},
 		[increment](state) {
@@ -74,7 +83,7 @@ export const reducers = handleActions(
 			return { ...state, count: state.count - 1 };
 		},
 		[rowClick](state, { payload }) {
-			return { ...state, count: state.count + 1, last: payload.index };
+			return { ...state, count: state.count + 1, last: payload };
 		},
 		[updateLocation](state, { payload: { location } }) {
 			return { ...state, location };

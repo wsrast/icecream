@@ -1,6 +1,22 @@
-# Component Library
+# I Love Ice Cream
 
-This repo contains a simple sandbox based off of create-react-app, but with a bunch of linting tools and styled-components added. The list of add-ons and customizations will expand, but I'm going to try and keep from ejecting CRA. The new Babel macros help with that, and I'm going to see how far I can push them.
+## Goal
+
+The ask here is to, using the Yelp Fusion API,
+
+1. Find the top 5 ice cream shops in Alpharetta
+2. Include:
+   1. Business name
+   2. Business address
+   3. Excerpt from a review of that business
+   4. Name of the person who wrote the review
+   5. Order the same as the API response
+
+### Other stuff I've done here
+
+I could have used the Yelp "location" parameter to find the results, but I wanted to try using a separate site and call for kicks, so I pulled longitude and latitude from a different API.
+
+The project structure is a basic example of how I'm used to setting up my boilerplate, including linting and git hooks.
 
 ## Usage
 
