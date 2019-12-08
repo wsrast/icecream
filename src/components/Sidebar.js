@@ -1,8 +1,8 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components/macro';
-import ClickCounter from './ClickCounter';
+/* import ClickCounter from './ClickCounter';
 import LastClick from './LastClick';
-import { BodyCellStyled } from './BodyCell';
+ */ import { BodyCellStyled } from './BodyCell';
 import Button from './Button';
 import TextField from './TextField';
 import {
@@ -24,8 +24,8 @@ const Sidebar = () => {
 
 	return (
 		<SideBarStyled>
-			<ClickCounter />
-			<LastClick />
+			{/* <ClickCounter />
+			<LastClick />*/}
 			<br />
 			<TextField
 				label="Enter a city, state or address:"
