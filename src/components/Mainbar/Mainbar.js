@@ -33,10 +33,10 @@ const Mainbar = () => {
 
 	useEffect(() => {
 		if (geocoords.lon && geocoords.lat) {
-			console.log(`Mainbar::useEffect - gettingIceCreamShops`);
+			// console.log(`Mainbar::useEffect - gettingIceCreamShops`);
 			dispatch(getIceCreamShops(geocoords));
 		} else {
-			console.log(`Mainbar::useEffect - getting Geocoords for ${location}`);
+			// console.log(`Mainbar::useEffect - getting Geocoords for ${location}`);
 			dispatch(getGeocoords(location));
 		}
 		// disable eslint below. Don't want the effect running on every keystroke

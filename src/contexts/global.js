@@ -71,11 +71,6 @@ export const reducers = handleActions(
 	{
 		[receiveShopReviews](state, { payload: { meta, reviews } }) {
 			// just pulling the first review here
-			/* const reviews = {
-				...state.reviews,
-				[payload.reviews[0].id]: payload.reviews[0],
-			}; */
-			console.log(`action: `, meta, reviews);
 			return {
 				...state,
 				reviews: { ...state.reviews, [meta.reqMeta.shopId]: reviews[0] },
