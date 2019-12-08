@@ -4,7 +4,7 @@ import { ThemeProvider } from 'styled-components';
 import GlobalProvider from './contexts/global';
 import Layout from './components/Layout';
 import Sidebar from './components/Sidebar';
-import Mainbar from './components/Mainbar';
+import Mainbar from './components/Mainbar/Mainbar';
 import defaultTheme from './theme/theme';
 
 const AppMain = styled.div`

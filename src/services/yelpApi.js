@@ -9,9 +9,9 @@ const search = ({ lon, lat }) => {
 	return `${serviceUrl}${searchRoute}?term=ice%20cream&limit=${defaultLimit}&sort_by=${defaultSortBy}&latitude=${lon}&longitude=${lat}`;
 };
 
-const reviews = alias => {
+const reviews = id => {
 	const { serviceUrl, businessesRoute, reviewsRoute } = config.yelp;
-	return `${serviceUrl}${businessesRoute}/${alias}${reviewsRoute}`;
+	return `${serviceUrl}${businessesRoute}/${id}${reviewsRoute}`;
 };
 
 const api = { search, reviews };

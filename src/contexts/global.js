@@ -10,6 +10,23 @@ import getYelpApiUrl from '../services/yelpApi';
 export const GlobalContext = createContext();
 
 // action creators
+export const receiveShopReviews = createAction('RECEIVE_SHOP_REVIEWS');
+export const getShopReviews = createAction(
+	'GET_SHOP_DETAILS',
+	undefined,
+	id => ({
+		shopId: id,
+		api: {
+			req: {
+				headers: {
+					Authorization: config.yelp.key,
+				},
+				url: getYelpApiUrl('reviews', id),
+			},
+			callbackAction: receiveShopReviews,
+		},
+	})
+);
 export const receiveGeocoords = createAction('RECEIVE_GEOCOORDS');
 export const getGeocoords = createAction('GET_GEOCOORDS', undefined, loc => ({
 	api: {
@@ -42,6 +59,7 @@ export const updateLocation = createAction('UPDATE_LOCATION', location => ({
 
 const initialState = {
 	businesses: [],
+	reviews: {},
 	geocoords: {},
 	location: config.defaultLocation,
 	count: 0,
@@ -51,6 +69,18 @@ const initialState = {
 
 export const reducers = handleActions(
 	{
+		[receiveShopReviews](state, { payload: { meta, reviews } }) {
+			// just pulling the first review here
+			/* const reviews = {
+				...state.reviews,
+				[payload.reviews[0].id]: payload.reviews[0],
+			}; */
+			console.log(`action: `, meta, reviews);
+			return {
+				...state,
+				reviews: { ...state.reviews, [meta.reqMeta.shopId]: reviews[0] },
+			};
+		},
 		[receiveGeocoords](state, { payload, error }) {
 			const {
 				features: [
@@ -82,8 +112,8 @@ export const reducers = handleActions(
 		[decrement](state) {
 			return { ...state, count: state.count - 1 };
 		},
-		[rowClick](state, { payload }) {
-			return { ...state, count: state.count + 1, last: payload };
+		[rowClick](state, { payload: { name } }) {
+			return { ...state, count: state.count + 1, last: name };
 		},
 		[updateLocation](state, { payload: { location } }) {
 			return { ...state, location };
@@ -99,10 +129,12 @@ export const reducers = handleActions(
  * 	by the useAsyncReducer hook.
  */
 const asyncHandler = async (dispatch, action) => {
-	const { req, callbackAction } = action.meta.api;
+	const {
+		api: { req, callbackAction },
+	} = action.meta;
 	try {
 		const response = await send(req);
-		dispatch(callbackAction(response));
+		dispatch(callbackAction({ ...response, meta: { reqMeta: action.meta } }));
 	} catch (e) {
 		dispatch(callbackAction(e));
 	}
